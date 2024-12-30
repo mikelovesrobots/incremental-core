@@ -1,4 +1,4 @@
-import type { GeneratorDefinition, PlayerState } from "../definitions";
+import type { GeneratorDefinition, PlayerState } from "@/types";
 
 export const findVisibleGenerators = (
   generatorDefinitions: GeneratorDefinition[],

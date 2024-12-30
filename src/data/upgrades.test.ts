@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
-import { PlayerState, UpgradeDefinition } from "../../src/index.d";
-import { findUpgradeById, findVisibleUpgrades } from "../../src";
+import { findVisibleUpgrades, findUpgradeById } from "@/index";
+import type { UpgradeDefinition, PlayerState } from "@/types";
 
 describe("findVisibleUpgrades", () => {
   const mockUpgrades: Partial<UpgradeDefinition>[] = [

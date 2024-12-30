@@ -48,7 +48,7 @@ export const generatorDefinitions: GeneratorDefinition[] = [
     baseProduction: 10,
     resource: "energy",
     cost: { base: 1000, scaling: 1.25 },
-    unlockCondition: (state) =>
+    unlockCondition: (state: PlayerState) =>
       state.generators.solarPanel && state.generators.solarPanel.owned >= 10,
   },
 ];
@@ -74,7 +74,7 @@ export const upgradeDefinitions: UpgradeDefinition[] = [
       },
     ],
     cost: { base: 50, scaling: 1.2 },
-    unlockCondition: (state) =>
+    unlockCondition: (state: PlayerState) =>
       state.generators.solarPanel && state.generators.solarPanel.owned >= 5,
   },
 ];
@@ -87,11 +87,11 @@ Example: Prestiges
 import type { PrestigeDefinition } from "incremental-core";
 
 export const prestigeDefinition: PrestigeDefinition = {
-  pointFormula: (state) => Math.floor(state.resources.energy / 1000),
   bonuses: {
-    productionMultiplier: (points) => 1 + points * 0.1,
+    productionMultiplier: (state: PlayerState) =>
+      state.resources.energy.div(1000).times(0.1).plus(1).floor(),
   },
-  unlockCondition: (state) =>
+  unlockCondition: (state: PlayerState) =>
     state.generators.fusionReactor &&
     state.generators.fusionReactor.owned >= 10,
 };
@@ -169,19 +169,21 @@ console.log("Visible Upgrades:", visibleUpgrades);
 ### Prestige
 
 ```typescript
-import { prestige } from "incremental-core";
+import { canPrestige, prestige } from "incremental-core";
 import { playerState } from "./playerState";
 import { prestigeDefinition } from "./prestige";
 
-prestige(playerState, prestigeDefinition);
+if (canPrestige(prestigeDefinition, playerState)) {
+  prestige(prestigeDefinition, playerState);
 
-console.log(
-  `Prestige completed! Points: ${
-    playerState.prestigePoints
-  }, Production Multiplier: ${prestigeDefinition.bonuses.productionMultiplier(
-    playerState.prestigePoints
-  )}`
-);
+  console.log(
+    `Prestige completed! Points: ${
+      playerState.prestigePoints
+    }, Production Multiplier: ${prestigeDefinition.bonuses.productionMultiplier(
+      playerState.prestigePoints
+    )}`
+  );
+}
 ```
 
 ### Purchase Generator

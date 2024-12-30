@@ -15,7 +15,7 @@ export interface PlayerState {
     [key: UpgradeType]: { owned: Decimal }; // e.g., {"solarPanelEfficiency": { owned: new Decimal(0)}}
   };
   prestigeBonuses: {
-    productionMultiplier: Decimal; // e.g. new Decimal(0)
+    productionMultiplier: Decimal; // e.g. new Decimal(1.0)
   };
 }
 
@@ -56,4 +56,5 @@ export interface PrestigeDefinition {
   bonused: {
     productionMultiplier: (state: PlayerState) => Decimal; // e.g., (new Decimal(Math.floor(state.resources.energy / 1000) * 0.1)).plus(0.1)
   };
+  unlockCondition: (state: PlayerState) => boolean; // return true if unlocked for this playerState
 }

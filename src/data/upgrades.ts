@@ -1,4 +1,4 @@
-import type { UpgradeDefinition, PlayerState } from "../definitions";
+import type { PlayerState, UpgradeDefinition } from "@/types";
 
 export const findVisibleUpgrades = (
   upgradeDefinitions: UpgradeDefinition[],

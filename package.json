@@ -15,7 +15,7 @@
   "author": "Mike Judge",
   "license": "MIT",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest --coverage"

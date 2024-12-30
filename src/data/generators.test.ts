@@ -1,9 +1,6 @@
+import { findGeneratorById, findVisibleGenerators } from "@/index";
+import type { GeneratorDefinition, PlayerState } from "@/types";
 import Decimal from "decimal.js";
-import {
-  findVisibleGenerators,
-  findGeneratorById,
-} from "../../src/data/generators";
-import { GeneratorDefinition, PlayerState } from "../../src/index.d";
 
 describe("findVisibleGenerators", () => {
   const mockGenerators: Partial<GeneratorDefinition>[] = [
