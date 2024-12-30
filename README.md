@@ -80,6 +80,23 @@ export const upgradeDefinitions: UpgradeDefinition[] = [
 ];
 ```
 
+Example: Prestiges
+
+```typescript
+// prestige.ts
+import type { PrestigeDefinition } from "incremental-core";
+
+export const prestigeDefinition: PrestigeDefinition = {
+  pointFormula: (state) => Math.floor(state.resources.energy / 1000),
+  bonuses: {
+    productionMultiplier: (points) => 1 + points * 0.1,
+  },
+  unlockCondition: (state) =>
+    state.generators.fusionReactor &&
+    state.generators.fusionReactor.owned >= 10,
+};
+```
+
 ### Initialize Player State
 
 Set up the player's mutable state, which tracks their progress in the game. This state can be easily serialized for saving and loading.
@@ -153,10 +170,18 @@ console.log("Visible Upgrades:", visibleUpgrades);
 
 ```typescript
 import { prestige } from "incremental-core";
+import { playerState } from "./playerState";
+import { prestigeDefinition } from "./prestige";
 
-prestige(playerState);
+prestige(playerState, prestigeDefinition);
 
-console.log(`Prestige Points: ${playerState.prestigePoints}`);
+console.log(
+  `Prestige completed! Points: ${
+    playerState.prestigePoints
+  }, Production Multiplier: ${prestigeDefinition.bonuses.productionMultiplier(
+    playerState.prestigePoints
+  )}`
+);
 ```
 
 ### Purchase Generator

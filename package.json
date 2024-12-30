@@ -1,0 +1,32 @@
+{
+  "name": "incremental-core",
+  "version": "0.1.0",
+  "description": "A lightweight, flexible TypeScript library for building incremental games with generators, upgrades, prestige mechanics, and more.",
+  "keywords": [
+    "incremental-games",
+    "game-engine",
+    "typescript",
+    "generators",
+    "upgrades",
+    "prestige",
+    "idle",
+    "game"
+  ],
+  "author": "Mike Judge",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.2.2"
+  }
+}
