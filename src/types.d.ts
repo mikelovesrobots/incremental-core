@@ -48,7 +48,10 @@ export interface UpgradeDefinition {
   name: string; // e.g., "Solar Panel Efficiency",
   generatorId: GeneratorType; // e.g., "solarPanel",
   effects: UpgradeEffect[];
-  cost: { base: 50; scaling: 1.2 };
+  cost: {
+    base: Decimal; // e.g., new Decimal("2")
+    scaling: Decimal; // e.g., new Decimal("1.2")
+  };
   unlockCondition: (state: PlayerState) => boolean; // return true if unlocked for this playerState
 }
 

@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["jest"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "test/**/*"],
+  "files": ["test/types.d.ts"]
 }

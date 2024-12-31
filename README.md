@@ -123,18 +123,37 @@ export const playerState: PlayerState = {
 
 Use the library's helper methods to implement game mechanics like calculating costs, production, and prestige.
 
-### Calculate Costs
+### Calculate Generator Costs
 
 ```typescript
-import { calculateCost, findGeneratorById } from "incremental-core";
+import { calculateGeneratorCost, findGeneratorById } from "incremental-core";
 
-const nextPurchaseCost = calculateCost(
+const generatorDefinition = findGeneratorById(
   generatorDefinitions,
-  playerState,
   "solarPanel"
 );
 
+const nextPurchaseCost = calculateGeneratorCost(
+  generatorDefinition,
+  playerState
+);
+
 console.log(`Cost of next Solar Panel: ${nextPurchaseCost}`);
+```
+
+### Calculate Upgrade Costs
+
+```typescript
+import { calculateUpgradeCost, findUpgradeById } from "incremental-core";
+
+const upgradeDefinition = findUpgradeById(
+  upgradeDefinitions,
+  "solarPanelEfficiency"
+);
+
+const nextPurchaseCost = calculateUpgradeCost(upgradeDefinition, playerState);
+
+console.log(`Cost of next Solar Panel Efficiency: ${nextPurchaseCost}`);
 ```
 
 ### Calculate Production
