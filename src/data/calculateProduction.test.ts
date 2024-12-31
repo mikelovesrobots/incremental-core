@@ -7,7 +7,7 @@ describe("calculateProduction", () => {
   const mockGenerator = {
     id: "generator1",
     baseProduction: new Decimal(10),
-  };
+  } as unknown as GeneratorDefinition;
 
   const mockPlayerState = {
     generators: {
@@ -19,14 +19,14 @@ describe("calculateProduction", () => {
     prestigeBonuses: {
       productionMultiplier: new Decimal(1),
     },
-  };
+  } as unknown as PlayerState;
 
   const mockUpgrades: UpgradeDefinition[] = [];
 
   it("calculates base production without upgrades", () => {
     const result = calculateProduction(
-      mockGenerator as GeneratorDefinition,
-      mockPlayerState as unknown as PlayerState,
+      mockGenerator,
+      mockPlayerState,
       mockUpgrades
     );
     expect(result).toEqualDecimal(10);
@@ -40,11 +40,11 @@ describe("calculateProduction", () => {
           owned: new Decimal(3),
         },
       },
-    };
+    } as unknown as PlayerState;
 
     const result = calculateProduction(
-      mockGenerator as GeneratorDefinition,
-      playerState as unknown as PlayerState,
+      mockGenerator,
+      playerState,
       mockUpgrades
     );
     expect(result).toEqualDecimal(30);
@@ -62,7 +62,7 @@ describe("calculateProduction", () => {
           },
         ],
       },
-    ];
+    ] as unknown as UpgradeDefinition[];
 
     const playerState = {
       ...mockPlayerState,
@@ -71,13 +71,9 @@ describe("calculateProduction", () => {
           owned: new Decimal(1),
         },
       },
-    };
+    } as unknown as PlayerState;
 
-    const result = calculateProduction(
-      mockGenerator as GeneratorDefinition,
-      playerState as unknown as PlayerState,
-      upgrades as UpgradeDefinition[]
-    );
+    const result = calculateProduction(mockGenerator, playerState, upgrades);
     expect(result).toEqualDecimal(20);
   });
 
@@ -87,11 +83,11 @@ describe("calculateProduction", () => {
       prestigeBonuses: {
         productionMultiplier: new Decimal(2),
       },
-    };
+    } as unknown as PlayerState;
 
     const result = calculateProduction(
-      mockGenerator as GeneratorDefinition,
-      playerState as unknown as PlayerState,
+      mockGenerator,
+      playerState,
       mockUpgrades
     );
     expect(result).toEqualDecimal(20);
@@ -109,7 +105,7 @@ describe("calculateProduction", () => {
           },
         ],
       },
-    ];
+    ] as unknown as UpgradeDefinition[];
 
     const playerState = {
       ...mockPlayerState,
@@ -121,13 +117,9 @@ describe("calculateProduction", () => {
       prestigeBonuses: {
         productionMultiplier: new Decimal(2),
       },
-    };
+    } as unknown as PlayerState;
 
-    const result = calculateProduction(
-      mockGenerator as GeneratorDefinition,
-      playerState as unknown as PlayerState,
-      upgrades as UpgradeDefinition[]
-    );
+    const result = calculateProduction(mockGenerator, playerState, upgrades);
     expect(result).toEqualDecimal(40);
   });
 
@@ -143,7 +135,7 @@ describe("calculateProduction", () => {
           },
         ],
       },
-    ];
+    ] as unknown as UpgradeDefinition[];
 
     const playerState = {
       ...mockPlayerState,
@@ -152,13 +144,9 @@ describe("calculateProduction", () => {
           owned: new Decimal(1),
         },
       },
-    };
+    } as unknown as PlayerState;
 
-    const result = calculateProduction(
-      mockGenerator as GeneratorDefinition,
-      playerState as unknown as PlayerState,
-      upgrades as UpgradeDefinition[]
-    );
+    const result = calculateProduction(mockGenerator, playerState, upgrades);
     expect(result).toEqualDecimal(10);
   });
 });
