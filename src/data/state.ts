@@ -28,3 +28,17 @@ export const resetUpgrades = (state: PlayerState): void => {
     state.upgrades[upgradeType].owned = new Decimal(0);
   }
 };
+
+export const getOwnedGeneratorsCount = (
+  playerState: PlayerState,
+  generatorId: string
+): Decimal => {
+  return playerState.generators[generatorId]?.owned ?? new Decimal(0);
+};
+
+export const getOwnedUpgradesCount = (
+  playerState: PlayerState,
+  upgradeId: string
+): Decimal => {
+  return playerState.upgrades[upgradeId]?.owned ?? new Decimal(0);
+};

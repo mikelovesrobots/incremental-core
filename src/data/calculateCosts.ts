@@ -1,19 +1,28 @@
-import { GeneratorDefinition, PlayerState, UpgradeDefinition } from "@/types";
+import { getOwnedGeneratorsCount, getOwnedUpgradesCount } from "@/index";
+import {
+  CostDefinition,
+  GeneratorDefinition,
+  PlayerState,
+  UpgradeDefinition,
+} from "@/types";
+import Decimal from "decimal.js";
 
-export const calculateGeneratorCost = (
+export const getGeneratorCost = (
   generator: GeneratorDefinition,
   playerState: PlayerState
 ) => {
-  const { base, scaling } = generator.cost;
-  const owned = playerState.generators[generator.id].owned;
-  return base.mul(scaling.pow(owned));
+  const owned = getOwnedGeneratorsCount(playerState, generator.id);
+  return calculateCost(generator.cost, owned);
 };
 
-export const calculateUpgradeCost = (
+export const getUpgradeCost = (
   upgrade: UpgradeDefinition,
   playerState: PlayerState
 ) => {
-  const { base, scaling } = upgrade.cost;
-  const owned = playerState.upgrades[upgrade.id].owned;
+  const owned = getOwnedUpgradesCount(playerState, upgrade.id);
+  return calculateCost(upgrade.cost, owned);
+};
+
+const calculateCost = ({ base, scaling }: CostDefinition, owned: Decimal) => {
   return base.mul(scaling.pow(owned));
 };

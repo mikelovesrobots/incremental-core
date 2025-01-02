@@ -24,10 +24,7 @@ export interface GeneratorDefinition {
   name: string; // e.g., "Solar Panel"
   baseProduction: Decimal; // e.g., "Base Production"
   resource: ResourceType; // e.g., "energy"
-  cost: {
-    base: Decimal; // e.g., new Decimal("1")
-    scaling: Decimal; // e.g., new Decimal("1.15")
-  };
+  cost: CostDefinition;
   unlockCondition: (state: PlayerState) => boolean; // returns true if unlocked for this playerState
 }
 
@@ -48,10 +45,7 @@ export interface UpgradeDefinition {
   name: string; // e.g., "Solar Panel Efficiency",
   generatorId: GeneratorType; // e.g., "solarPanel",
   effects: UpgradeEffect[];
-  cost: {
-    base: Decimal; // e.g., new Decimal("2")
-    scaling: Decimal; // e.g., new Decimal("1.2")
-  };
+  cost: CostDefinition;
   unlockCondition: (state: PlayerState) => boolean; // return true if unlocked for this playerState
 }
 
@@ -60,4 +54,9 @@ export interface PrestigeDefinition {
     productionMultiplier: (state: PlayerState) => Decimal; // e.g., (new Decimal(Math.floor(state.resources.energy / 1000) * 0.1)).plus(0.1)
   };
   unlockCondition: (state: PlayerState) => boolean; // return true if unlocked for this playerState
+}
+
+export interface CostDefinition {
+  base: Decimal; // e.g., new Decimal("1")
+  scaling: Decimal; // e.g., new Decimal("1.15")
 }

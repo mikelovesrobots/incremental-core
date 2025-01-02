@@ -1,6 +1,8 @@
 import Decimal from "decimal.js";
 import {
   applyPrestigeBonus,
+  getOwnedGeneratorsCount,
+  getOwnedUpgradesCount,
   resetGenerators,
   resetResources,
   resetUpgrades,
@@ -74,5 +76,56 @@ describe("resetUpgrades", () => {
 
     expect(mockPlayerState.upgrades.upgrade1.owned.toNumber()).toBe(0);
     expect(mockPlayerState.upgrades.upgrade2.owned.toNumber()).toBe(0);
+  });
+});
+
+describe("state utilities", () => {
+  let mockPlayerState: PlayerState;
+
+  beforeEach(() => {
+    mockPlayerState = {
+      generators: {
+        generator1: { owned: new Decimal(5) },
+        generator2: { owned: new Decimal(0) },
+      },
+      upgrades: {
+        upgrade1: { owned: new Decimal(3) },
+        upgrade2: { owned: new Decimal(0) },
+      },
+    } as unknown as PlayerState;
+  });
+
+  describe("getOwnedGeneratorsCount", () => {
+    it("should return correct number of owned generators", () => {
+      const count = getOwnedGeneratorsCount(mockPlayerState, "generator1");
+      expect(count).toEqualDecimal(5);
+    });
+
+    it("should return zero for generators with no purchases", () => {
+      const count = getOwnedGeneratorsCount(mockPlayerState, "generator2");
+      expect(count).toEqualDecimal(0);
+    });
+
+    it("should return zero for non-existent generators", () => {
+      const count = getOwnedGeneratorsCount(mockPlayerState, "nonexistent");
+      expect(count).toEqualDecimal(0);
+    });
+  });
+
+  describe("getOwnedUpgradesCount", () => {
+    it("should return correct number of owned upgrades", () => {
+      const count = getOwnedUpgradesCount(mockPlayerState, "upgrade1");
+      expect(count).toEqualDecimal(3);
+    });
+
+    it("should return zero for upgrades with no purchases", () => {
+      const count = getOwnedUpgradesCount(mockPlayerState, "upgrade2");
+      expect(count).toEqualDecimal(0);
+    });
+
+    it("should return zero for non-existent upgrades", () => {
+      const count = getOwnedUpgradesCount(mockPlayerState, "nonexistent");
+      expect(count).toEqualDecimal(0);
+    });
   });
 });

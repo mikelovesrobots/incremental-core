@@ -126,17 +126,14 @@ Use the library's helper methods to implement game mechanics like calculating co
 ### Calculate Generator Costs
 
 ```typescript
-import { calculateGeneratorCost, findGeneratorById } from "incremental-core";
+import { getGeneratorCost, findGeneratorById } from "incremental-core";
 
 const generatorDefinition = findGeneratorById(
   generatorDefinitions,
   "solarPanel"
 );
 
-const nextPurchaseCost = calculateGeneratorCost(
-  generatorDefinition,
-  playerState
-);
+const nextPurchaseCost = getGeneratorCost(generatorDefinition, playerState);
 
 console.log(`Cost of next Solar Panel: ${nextPurchaseCost}`);
 ```
@@ -144,14 +141,14 @@ console.log(`Cost of next Solar Panel: ${nextPurchaseCost}`);
 ### Calculate Upgrade Costs
 
 ```typescript
-import { calculateUpgradeCost, findUpgradeById } from "incremental-core";
+import { getUpgradeCost, findUpgradeById } from "incremental-core";
 
 const upgradeDefinition = findUpgradeById(
   upgradeDefinitions,
   "solarPanelEfficiency"
 );
 
-const nextPurchaseCost = calculateUpgradeCost(upgradeDefinition, playerState);
+const nextPurchaseCost = getUpgradeCost(upgradeDefinition, playerState);
 
 console.log(`Cost of next Solar Panel Efficiency: ${nextPurchaseCost}`);
 ```
